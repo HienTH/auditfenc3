@@ -23,10 +23,13 @@ const Ogn = () => {
   async function fetchAuditData(slug) {
     const apiUrl = `https://degen.bunnydream.site/api/audit/${slug}/?format=json`;
     try {
-      const response = await fetch(apiUrl);
-      const auditData = await response.json();
-      console.log(auditData);
-      setAuditData(auditData);
+      if (auditData=="")
+      {
+        const response = await fetch(apiUrl);
+        const auditData = await response.json();
+        console.log(auditData);
+        auditData.assessments&&auditData&&setAuditData(auditData);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -682,17 +685,16 @@ const Ogn = () => {
   
     return (
       <>
-        {auditData.coin && auditData.coin.description && (
-          <p className="text-white" style={{ fontSize: '15px' }}>
-            {showFull
-              ? auditData.coin.description
-              : auditData.coin.description.slice(0, 500)+'...'} 
-          </p>
-        )}
-  
-          <p className="my-4 text-primary" onClick={toggleShowFull}>
-            {showFull ? 'Show less' : 'Show more'}
-          </p>
+      {showFull
+        ? auditData.coin.description
+        : auditData.coin.description.length > 500
+        ? auditData.coin.description.slice(0, 500) + '...'
+        : auditData.coin.description}
+      {auditData.coin.description.length > 500 && (
+        <button class="text-primary" onClick={toggleShowFull}>
+          {showFull ? 'Show Less' : 'Show More'}
+        </button>
+      )}
       </>
     );
   };
