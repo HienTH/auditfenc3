@@ -528,3 +528,17 @@ body {
   .ant-table-tbody > tr.ant-table-row-level-1:hover > td {
     background: unset;
   }
+  /* Add this style to your CSS or in a style block */
+  /* Hide the scrollbar when it's not in use */
+  .ant-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .ant-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+
+  .ant-list::-webkit-scrollbar-track {
+    background-color: transparent;
+  }

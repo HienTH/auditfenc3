@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from 'next/link';
 const HeroDesktop = () => (
   <>
     <div className="flex justify-center w-full p-32">
@@ -24,9 +25,11 @@ const HeroDesktop = () => (
           Welcome to Fenc3.
         </div>
         <div className="flex mt-16">
+        <Link href="/audits">
           <button className="px-5 py-2 mr-10 text-2xl text-center text-black bg-primary rounded-3xl">
             Go to App
           </button>
+        </Link>
           <button className="px-5 py-2 mr-6 text-2xl text-center text-white bg-transparent border border-primary rounded-3xl">
             Documentation
           </button>
@@ -59,9 +62,11 @@ const HeroDesktop = () => (
             Audit Certificate{" "}
           </div>
           <div className="flex flex-col items-center justify-center gap-3 rounded-xl">
+            <Link href="/audits">
             <button className="w-40 h-8 bg-primary rounded-[88px]">
               Go to app
             </button>
+            </Link>
             <button className="w-40 h-8 text-white bg-transparent border border-primary bg-primary rounded-[88px]">
               Documentation
             </button>
@@ -86,7 +91,9 @@ const HeroDesktop = () => (
           </div>
           <div className="flex flex-col items-center justify-center gap-3 rounded-xl">
             <button className="w-40 h-8 bg-primary rounded-[88px]">
+            <a href="https://bot.fenc3.com" target="_blank" rel="noopener noreferrer">
               Go to app
+            </a>
             </button>
             <button className="w-40 h-8 text-white bg-transparent border border-primary bg-primary rounded-[88px]">
               Documentation
@@ -131,9 +138,11 @@ const HeroMobile = () => (
     </div>
     <div className="flex flex-col items-center justify-center gap-2 my-5 font-bold">
       <div className="">
+      <Link href="/audits">
         <button className="px-5 py-2 text-center text-black bg-primary rounded-3xl">
           Go to App
         </button>
+      </Link>
       </div>
       <div className="">
         <button className="px-5 py-2 text-center text-white bg-transparent border border-primary rounded-3xl">
@@ -157,9 +166,11 @@ const HeroMobile = () => (
             Audit Certificate{" "}
           </div>
           <div className="flex flex-col items-center justify-center gap-3 rounded-xl">
+          <Link href="/audits">
             <button className="w-40 h-8 bg-primary rounded-[88px]">
               Go to app
             </button>
+          </Link>
             <button className="w-40 h-8 text-white bg-transparent border border-primary bg-primary rounded-[88px]">
               Documentation
             </button>
@@ -183,7 +194,9 @@ const HeroMobile = () => (
           </div>
           <div className="flex flex-col items-center justify-center gap-3 rounded-xl">
             <button className="w-40 h-8 bg-primary rounded-[88px]">
+            <a href="https://bot.fenc3.com" target="_blank" rel="noopener noreferrer">
               Go to app
+            </a>
             </button>
             <button className="w-40 h-8 text-white bg-transparent border border-primary bg-primary rounded-[88px]">
               Documentation
