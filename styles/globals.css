@@ -456,6 +456,47 @@ body {
     outline: none;
     border: none;
 }
+/* components/SearchBarResult.module.css */
+.search-bar-result {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  color: #040524;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.result-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1 column for image, 2 columns for text */
+    grid-template-rows: auto auto; /* 2 rows for text */
+  }
+  
+  .image-column {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    grid-row: span 1; /* Image spans 2 rows */
+  }
+  
+  .image {
+    width: 100%; /* Make the image width 100% of the container */
+  }
+
+  .name {
+    font-size: 14px;
+  }
+  
+  .created-at {
+    white-space: nowrap;
+  }
+
 .MuiPagination-root {
   button {
     color: red !important;

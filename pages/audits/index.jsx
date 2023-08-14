@@ -1,28 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import { Button, Input, Space, Table, Tag } from "antd";
 import SearchOutlined from "@ant-design/icons";
 import Pagination from "@mui/material/Pagination";
 import Image from 'next/image';
-
-
-const data = [
-  { id: 1, name: "Logo", date: "9 Dec 2022" },
-  { id: 2, name: "Logo", date: "9 Dec 2022" },
-  { id: 3, name: "Logo", date: "9 Dec 2022" },
-  { id: 4, name: "Logo", date: "9 Dec 2022" },
-  { id: 5, name: "Logo", date: "9 Dec 2022" },
-  { id: 6, name: "Logo", date: "9 Dec 2022" },
-  { id: 7, name: "Logo", date: "9 Dec 2022" },
-  { id: 8, name: "Logo", date: "9 Dec 2022" },
-  { id: 9, name: "Logo", date: "9 Dec 2022" },
-  { id: 10, name: "Logo", date: "9 Dec 2022" },
-  { id: 11, name: "Logo", date: "9 Dec 2022" },
-  { id: 12, name: "Logo", date: "9 Dec 2022" },
-  { id: 13, name: "Logo", date: "9 Dec 2022" },
-  { id: 14, name: "Logo", date: "9 Dec 2022" },
-  { id: 15, name: "Logo", date: "9 Dec 2022" },
-];
-
+import SearchBar from "../../components/SearchBar";
 
 const columns = [
   {
@@ -116,166 +97,6 @@ const columns = [
   },
 ];
 
-
-const fetchSearchReportData = async (searchValue) => {
-  try {
-    const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=False&page=2");
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log("Error fetching data:", error);
-    return [];
-  }
-}
-
-const fetchData = (value) => {
-
-  const data = [
-    {
-      "id": 1,
-      "name": "Leanne Graham",
-      "username": "Bret",
-      "email": "Sincere@april.biz",
-      "address": {
-        "street": "Kulas Light",
-        "suite": "Apt. 556",
-        "city": "Gwenborough",
-        "zipcode": "92998-3874",
-        "geo": {
-          "lat": "-37.3159",
-          "lng": "81.1496"
-        }
-      },
-      "phone": "1-770-736-8031 x56442",
-      "website": "hildegard.org",
-      "company": {
-        "name": "Romaguera-Crona",
-        "catchPhrase": "Multi-layered client-server neural-net",
-        "bs": "harness real-time e-markets"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Ervin Howell",
-      "username": "Antonette",
-      "email": "Shanna@melissa.tv",
-      "address": {
-        "street": "Victor Plains",
-        "suite": "Suite 879",
-        "city": "Wisokyburgh",
-        "zipcode": "90566-7771",
-        "geo": {
-          "lat": "-43.9509",
-          "lng": "-34.4618"
-        }
-      },
-      "phone": "010-692-6593 x09125",
-      "website": "anastasia.net",
-      "company": {
-        "name": "Deckow-Crist",
-        "catchPhrase": "Proactive didactic contingency",
-        "bs": "synergize scalable supply-chains"
-      }
-    }];
-
-  return data;
-
-};
-
-const SearchResultList2 = ({ items }) => (
-<div aria-hidden="false">
-  <div tabindex="-1" data-g-portal-id="0" class="StyledBox-sc-13pk1d4-0 kRbltQ StyledDrop-sc-16s5rx8-0 kuENZm" style="max-height: 342.333px; left: 436.667px; width: 378.767px; top: 160.667px;">
-    <div role="listbox" class="StyledBox-sc-13pk1d4-0 hGpiXS TextInput__ContainerBox-sc-1ai0c08-0 hbtKgV">
-      <ol class="StyledTextInput__StyledSuggestions-sc-1x30a0s-4 fWcPNR">
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 bnqbur"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/apeswap"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1677608291933_358f7d83-dac8-4329-aa68-752be954f74d?alt=media&amp;token=b64207ac-c1b2-4e0f-b42b-34a20e82f9c1" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">Apeswap</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 23/00/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/2-ps"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1679672135227_8ddc9638-8d99-4529-ae70-4203055fa0dc?alt=media&amp;token=84b51aee-ddab-4b7a-87c5-a3331c07fcf2" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">ProfitScraper</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 21/29/23</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/afnd"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1671459571647_e1df4a8d-d2fd-4d69-9d70-02d40eb2768a?alt=media&amp;token=6118a8c4-6cc3-47a9-a9de-5d0cfc52aea9" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">Apefund V2</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 19/39/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/3-apes"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1667542531523_af4d2e38-0692-4b52-8867-46eb9ba86c58?alt=media&amp;token=ba0884fc-7a45-4f40-b3ce-76bc6dfd6a27" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">APESCOIN</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 04/50/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/2-aped"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1665309670893_5befee82-1026-492b-a1bb-175046eafd24?alt=media&amp;token=8426b2d2-7fbb-4237-a1aa-806b5e7e2aeb" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">Apedoge</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 11/45/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/sape"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1658399266352_7e6683a1-a304-47c7-827b-782bc3aaaa9a?alt=media&amp;token=30e1aa4b-1b4f-42f1-9155-bfde21ecc278" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">SpinApe</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 21/12/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/3-bape"><div class="StyledBox-sc-13pk1d4-0 iyOwjy"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1651004446598_a4f52dad-deb0-4b89-b426-e14223fa97b9?alt=media&amp;token=ce7305cb-2911-48cd-9dcd-a7aaf87e38fe" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">Baby Ape</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 27/40/22</span></div></div></a></button></li>
-        <li><button role="option" aria-selected="false" type="button" class="StyledButton-sc-323bzc-0 cdtPOb"><a class="StyledAnchor-sc-1rp7lwl-0 ezJrUI sc-17206447-0 cdmJwp" href="/audits/mape"><div class="StyledBox-sc-13pk1d4-0 dvKZQB"><div role="figure" class="StyledBox-sc-13pk1d4-0 KwPYK StyledAvatar-sc-1suyamb-1 sc-e07297e2-0 iwCGgS"><img role="presentation" src="https://firebasestorage.googleapis.com/v0/b/coinscopeassets.appspot.com/o/1650693785452_727b25a8-78f1-493c-8ff7-7f7f43b563fe?alt=media&amp;token=e3c6e2f1-4fc7-414e-a303-ee1019b1c8b6" class="StyledImage-sc-ey4zx9-0 eHUole"></img></div><div class="StyledBox__StyledBoxGap-sc-13pk1d4-1 cMkquQ"></div><div class="StyledBox-sc-13pk1d4-0 gHJPDE"><span class="StyledText-sc-1sadyjn-0 kjTYXp">Mafia Ape</span><span class="StyledText-sc-1sadyjn-0 kmjCdl">Onboarded on 23/15/22</span></div></div></a></button></li>
-      </ol>
-    </div>
-  </div>
-</div>
-
-);
-
-const SearchBar = () => {
-  
-  const [searchValue, setSearchValue] = useState('');
-  const [searchResult, setSearchResult] = useState('');
-
-  async function getAuditReport(searchValue) {
-
-    console.log('Search value:', searchValue);
-    //const data = await fetchSearchReportData(searchValue);
-    //const data = await fetchData(searchValue);
-    //const searchData = data['results'];
-    //setSearchResult(data);
-    //setSearchResult([
-    //  'Search Result 1',
-    //  'Search Result 2',
-    //  'Search Result 3',
-    //]);
-    console.log("Search report: ", data);
-
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      // Handle the search using the searchValue
-      //console.log('Search value:', searchValue);
-      getAuditReport(searchValue);
-    }
-  };
-
-  const handleInputChange = (event) => {
-    setSearchValue(event.target.value);
-    console.log(event.target.value);
-  };
-
-  return (
-  <>
-    <div className="searchbar-ngoai">
-      <div className="searchbar">
-        <div className="searchbar_icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </div>
-        <input
-          type="text"
-          placeholder="Search Project "
-          className="searchbar_input"
-          value={searchValue}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-        />
-      </div>
-      
-      {/*{searchResult && searchResult.length > 0 && (
-        <SearchResultList items={searchResult} />
-      )}*/}
-
-    </div>
-  </>
-  )
-};
-
-
 const fetchOnboardingData = async (currentPage) => {
   try {
     const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=True&page=" + currentPage);
@@ -330,9 +151,8 @@ const AuditDesktop = () => {
       const data = await fetchReportData(currentPageReport);
       var resData = data.results;      
       var response = [];
-      var k = 0;
+      var k = ((currentPageReport-1) * itemsPerPageReport) + 1;
       for (const i of resData) {
-        k = k + 1;
         var tagList = [];
         for (const it of i.assessments) {
           tagList = tagList.concat(it.types);
@@ -346,9 +166,10 @@ const AuditDesktop = () => {
           "slug": i.slug,
           "coin_icon": i.coin_icon
         };        
+        k = k + 1;
         response.push(item);
       }
-      console.log("Report: ", response);
+      //console.log("Report: ", response);
       if (response) {
         setDataReport(response);
         setCountReport(data.count);
@@ -356,7 +177,7 @@ const AuditDesktop = () => {
     }
     fetchData();
   }, [currentPageReport]);
-
+  
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-3 bg-transparent">
@@ -449,7 +270,7 @@ const AuditMobile = () => {
     async function fetchData() {
       const data = await fetchOnboardingData(currentPage);
       const resData = data.results;
-      console.log("Onboard: ", resData);
+      //console.log("Onboard: ", resData);
       
       if (resData) {
         setJsonOnboardingData(resData);
@@ -470,9 +291,8 @@ const AuditMobile = () => {
       const data = await fetchReportData(currentPageReport);
       var resData = data.results;      
       var response = [];
-      var k = 0;
+      var k = ((currentPageReport-1) * itemsPerPageReport) + 1;
       for (const i of resData) {
-        k = k + 1;
         var tagList = [];
         for (const it of i.assessments) {
           tagList = tagList.concat(it.types);
@@ -485,10 +305,11 @@ const AuditMobile = () => {
           "date": i.created_at.split('T')[0],
           "slug": i.slug,
           "coin_icon": i.coin_icon
-        };        
+        };    
+        k = k + 1;    
         response.push(item);
       }
-      console.log("Report: ", response);
+      //console.log("Report: ", response);
       if (response) {
         setDataReport(response);
         setCountReport(data.count);
@@ -496,7 +317,7 @@ const AuditMobile = () => {
     }
     fetchData();
   }, [currentPageReport]);  
-  
+
   return (
   <>
     <p className="my-5 text-3xl font-bold text-center text-primary">
