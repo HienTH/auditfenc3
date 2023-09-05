@@ -99,24 +99,36 @@ const columns = [
 
 const fetchOnboardingData = async (currentPage) => {
   try {
-    const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=True&page=" + currentPage);
+    //const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=True&page=" + currentPage);
+    const response = await fetch("https://api.fenc3.com/api/audit/?is_onboarding=True&page=" + currentPage);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Error fetching data:", error);
-    return [];
+    //console.log("Error fetching data:", error);
+    return {
+      "count": 0,
+      "next": null,
+      "previous": null,
+      "results": []
+    };
   }
 }
 
 const fetchReportData = async (currentPageReport) => {
   try {
 
-    const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=False&page=" + currentPageReport);
+    //const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=False&page=" + currentPageReport);
+    const response = await fetch("https://api.fenc3.com/api/audit/?is_onboarding=False&page=" + currentPageReport);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Error fetching data:", error);
-    return [];
+    //console.log("Error fetching data:", error);
+    return {
+      "count": 0,
+      "next": null,
+      "previous": null,
+      "results": []
+    };
   }
 }
 
@@ -131,8 +143,7 @@ const AuditDesktop = () => {
     async function fetchData() {
       const data = await fetchOnboardingData(currentPage);
       const resData = data.results;
-      console.log("Onboard: ", resData);
-      
+      //console.log("Onboard: ", resData);
       if (resData) {
         setJsonOnboardingData(resData);
         steCountOnboard(data.count);
@@ -152,22 +163,25 @@ const AuditDesktop = () => {
       var resData = data.results;      
       var response = [];
       var k = ((currentPageReport-1) * itemsPerPageReport) + 1;
-      for (const i of resData) {
-        var tagList = [];
-        for (const it of i.assessments) {
-          tagList = tagList.concat(it.types);
-        }        
-        const item = { 
-          "key": k, 
-          "coin": i.name, 
-          "tags": tagList.slice(0, 6), 
-          "amount": i.assessments.length, 
-          "date": i.created_at.split('T')[0],
-          "slug": i.slug,
-          "coin_icon": i.coin_icon
-        };        
-        k = k + 1;
-        response.push(item);
+
+      if (resData.length > 0) {
+        for (const i of resData) {
+          var tagList = [];
+          for (const it of i.assessments) {
+            tagList = tagList.concat(it.types);
+          }        
+          const item = { 
+            "key": k, 
+            "coin": i.name, 
+            "tags": tagList.slice(0, 6), 
+            "amount": i.assessments.length, 
+            "date": i.created_at.split('T')[0],
+            "slug": i.slug,
+            "coin_icon": i.coin_icon
+          };        
+          k = k + 1;
+          response.push(item);
+        }
       }
       //console.log("Report: ", response);
       if (response) {
@@ -292,22 +306,25 @@ const AuditMobile = () => {
       var resData = data.results;      
       var response = [];
       var k = ((currentPageReport-1) * itemsPerPageReport) + 1;
-      for (const i of resData) {
-        var tagList = [];
-        for (const it of i.assessments) {
-          tagList = tagList.concat(it.types);
-        }        
-        const item = { 
-          "key": k, 
-          "coin": i.name, 
-          "tags": tagList, 
-          "amount": i.assessments.length, 
-          "date": i.created_at.split('T')[0],
-          "slug": i.slug,
-          "coin_icon": i.coin_icon
-        };    
-        k = k + 1;    
-        response.push(item);
+
+      if (resData.length > 0) {
+        for (const i of resData) {
+          var tagList = [];
+          for (const it of i.assessments) {
+            tagList = tagList.concat(it.types);
+          }        
+          const item = { 
+            "key": k, 
+            "coin": i.name, 
+            "tags": tagList, 
+            "amount": i.assessments.length, 
+            "date": i.created_at.split('T')[0],
+            "slug": i.slug,
+            "coin_icon": i.coin_icon
+          };    
+          k = k + 1;    
+          response.push(item);
+        }
       }
       //console.log("Report: ", response);
       if (response) {

@@ -4,23 +4,24 @@ import Image from 'next/image';
 
 const fetchSearchReportData = async (searchValue) => {
   try {
-    const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=False&search=" + searchValue);
-    const data = await response.json();
-    //console.log("Search Origin: ", data['results']);
-    var dataRes = [];
-    for (const item of data['results']) {
-      var itemRes = { "name": "", "slug": "", "coin_icon": "", "create_at": ""} 
-      itemRes['name'] = item.name;
-      itemRes['coin_icon'] = item.coin_icon;
-      itemRes['slug'] = item.slug;
-      itemRes['created_at'] = item.created_at.split('T')[0];
+      //const response = await fetch("https://degen.bunnydream.site/api/audit/?is_onboarding=False&search=" + searchValue);
+      const response = await fetch("https://api.fenc3.com/api/audit/?is_onboarding=False&search=" + searchValue);
+      const data = await response.json();
+      //console.log("Search Origin: ", data['results']);
+      var dataRes = [];
+      for (const item of data['results']) {
+        var itemRes = { "name": "", "slug": "", "coin_icon": "", "create_at": ""} 
+        itemRes['name'] = item.name;
+        itemRes['coin_icon'] = item.coin_icon;
+        itemRes['slug'] = item.slug;
+        itemRes['created_at'] = item.created_at.split('T')[0];
 
-      dataRes.push(itemRes);
-    }
-    return dataRes;
+        dataRes.push(itemRes);
+      }
+      return dataRes;
   } catch (error) {
-    //console.log("Error fetching data:", error);
-    return [];
+      //console.log("Error fetching data:", error);
+      return [];
   }
 }
 

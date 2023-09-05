@@ -21,13 +21,15 @@ const Ogn = () => {
   const router = useRouter();
   const [auditData, setAuditData] = useState("");
   async function fetchAuditData(slug) {
-    const apiUrl = `https://degen.bunnydream.site/api/audit/${slug}/?format=json`;
+    //const apiUrl = `https://degen.bunnydream.site/api/audit/${slug}/?format=json`;
+    const apiUrl = `https://api.fenc3.com/api/audit/${slug}/?format=json`;
+    
     try {
       if (auditData=="")
       {
         const response = await fetch(apiUrl);
         const auditData = await response.json();
-        console.log(auditData);
+        //console.log(auditData);
         auditData.assessments&&auditData&&setAuditData(auditData);
       }
     } catch (error) {
